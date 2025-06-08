@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>All Recipes - Tasty Bites</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+    rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    html,body{
+        width: 100%;
+        height: 100%;
+        font-family: 'Poppins', sans-serif;
+        background-color: #fff8f1;
+    }
+
+    #nav{
+        height: 12vh;
+        width: 100%;
+        /* background-color: aqua; */
+        background-color: #fff3e0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 2.5vw;
+        margin-bottom: 20px;
+    }
+    #logo{
+        font-size: 2.4rem;
+        font-family: 'Dancing Script', cursive;
+        color: #fa695c;
+    }
+    #nav-list{
+        display: flex;
+        gap: 2.2vw;
+    }
+    #nav-list a {
+        text-decoration: none;
+        color: black;
+        font-weight: 500;
+    }
+    #nav-list h4{
+        font-size: 1.3rem;
+        font-weight: 400;
+    }
+    #nav-list h4:hover{
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #d35400;
+    }
+
+    .all-recipes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 50px;
+      padding: 0 30px;
+    }
+
+    .recipe {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    }
+
+    .recipe img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .recipe h2 {
+      /* margin-top: 0; */
+      margin-bottom: 5px;
+      font-size: 20px;
+      color: #e65100;
+    }
+
+    .recipe p{
+      color: #555;
+      font-size: 1rem;
+    }
+
+    /* .recipe h3 {
+      margin-bottom: 5px;
+    }
+
+    ul, ol {
+      padding-left: 18px;
+    } */
+    .view-btn {
+      margin-top: 10px;
+      padding: 8px 16px;
+      background-color: #ff7043;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .view-btn:hover {
+      background-color: #e64a19;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      /* z-index: 999;  */
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: white;
+      padding: 30px;
+      width: 80%;
+      max-width: 600px;
+      border-radius: 10px;
+      position: relative;
+      white-space: pre-line;
+    }
+    .close-btn {
+      position: absolute;
+      right: 15px;
+      top: 10px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #888;
+    }
+    
+  </style>
+</head>
+<body>
+
+    <div id="nav">
+      <h2 id="logo">Tasty Bites</h2>
+      <div id="nav-list">
+          <h4><a href="index.html"><i class="ri-home-4-line"></i> Home</a></h4>
+          <h4><a href="recipe.html">Recipes</a></h4>
+          <h4>Contact Us</h4>
+          <h4>Login</h4>
+      </div>
+    </div>
+
+  <h1>All Recipes</h1>
+
+  <div class="all-recipes">
+
+    <div class="recipe">
+      <img src="photo.jpg" alt="Chole Bhature">
+      <h2>Chole Bhature</h2>
+      <p>Spicy chickpeas served with fluffy fried bread.</p>
+      <button class="view-btn" onclick="openRecipe('chole')">View Recipe</button>
+      <!-- <h3>Ingredients:</h3>
+      <ul>
+        <li>2 cups boiled chickpeas</li>
+        <li>Onion, tomato, garlic, ginger, spices</li>
+        <li>Bhature dough</li>
+      </ul>
+      <h3>Instructions:</h3>
+      <ol>
+        <li>Sauté onions, garlic, tomatoes, add spices.</li>
+        <li>Mix with chickpeas and simmer.</li>
+        <li>Serve with deep-fried bhature.</li>
+      </ol> -->
+    </div>
+
+    <div class="recipe">
+      <img src="biryani.jpg" alt="Veg Biryani">
+      <h2>Veg Biryani</h2>
+      <p>Aromatic rice dish layered with veggies, herbs, and exotic spices.</p>
+      <button class="view-btn" onclick="openRecipe('vegbiryani')">View Recipe</button>
+      <!-- <h3>Ingredients:</h3>
+      <ul>
+        <li>1 cup basmati rice</li>
+        <li>Mixed vegetables (carrot, beans, peas)</li>
+        <li>Whole spices, biryani masala, yogurt</li>
+      </ul>
+      <h3>Instructions:</h3>
+      <ol>
+        <li>Cook veggies with spices, layer with rice.</li>
+        <li>Simmer on low heat (dum cooking).</li>
+        <li>Serve hot with raita.</li>
+      </ol> -->
+    </div>
+
+    <div class="recipe">
+      <img src="photo3.jpg" alt="Daal Makhani">
+      <h2>Daal Makhani</h2>
+      <p>Slow-cooked black lentils in a buttery, creamy tomato gravy.</p>
+      <button class="view-btn" onclick="openRecipe('dalmakhani')">View Recipe</button>
+      <!-- <h3>Ingredients:</h3>
+      <ul>
+        <li>1 cup whole black lentils</li>
+        <li>Rajma (kidney beans)</li>
+        <li>Onions, tomatoes, cream, butter</li>
+      </ul>
+      <h3>Instructions:</h3>
+      <ol>
+        <li>Soak and pressure cook dal + rajma.</li>
+        <li>Prepare tadka, mix with dal, simmer in butter and cream.</li>
+        <li>Serve hot with naan.</li>
+      </ol> -->
+    </div>
+
+    <div class="recipe">
+      <img src="manchurian.png" alt="Veg Manchurian">
+      <h2>Veg Manchurian</h2>
+      <p>Crispy veggie balls tossed in a spicy Indo-Chinese sauce.</p>
+      <button class="view-btn" onclick="openRecipe('vegmanchurian')">View Recipe</button>
+      <!-- <h3>Ingredients:</h3>
+      <ul>
+        <li>Finely chopped veggies</li>
+        <li>Cornflour, soy sauce, vinegar</li>
+        <li>Garlic, spring onions</li>
+      </ul>
+      <h3>Instructions:</h3>
+      <ol>
+        <li>Mix and fry veggie balls.</li>
+        <li>Prepare sauce with soy, garlic, vinegar.</li>
+        <li>Toss balls in sauce and serve hot.</li>
+      </ol> -->
+    </div>
+
+    <div class="recipe">
+      <img src="pulao.jpg" alt="Veg Pulao">
+      <h2>Veg Pulao</h2>
+      <p>Fragrant basmati rice cooked with colorful vegetables and mild spices.</p>
+      <button class="view-btn" onclick="openRecipe('vegpulao')">View Recipe</button>
+      <!-- <h3>Ingredients:</h3>
+      <ul>
+        <li>Basmati rice, peas, carrots</li>
+        <li>Whole spices (bay leaf, cardamom)</li>
+        <li>Ginger-garlic paste</li>
+      </ul>
+      <h3>Instructions:</h3>
+      <ol>
+        <li>Fry spices and veggies.</li>
+        <li>Add rice and water, cook till fluffy.</li>
+        <li>Garnish with coriander and serve.</li>
+      </ol> -->
+    </div>
+
+    <div class="recipe">
+      <img src="paneer-tikka.jpg" alt="Paneer Tikka">
+      <h2>Paneer Tikka</h2>
+      <p>Grilled marinated paneer cubes with bold spices and smoky flavor.</p>
+      <button class="view-btn" onclick="openRecipe('panertikka')">View Recipe</button>
+      <!-- <h3>Ingredients:</h3>
+      <ul>
+        <li>Paneer cubes, yogurt</li>
+        <li>Spices, lemon juice</li>
+        <li>Capsicum, onion</li>
+      </ul>
+      <h3>Instructions:</h3>
+      <ol>
+        <li>Marinate paneer with yogurt and spices.</li>
+        <li>Skewer with veggies and grill.</li>
+        <li>Serve with mint chutney.</li>
+      </ol> -->
+    </div>
+
+    <div class="recipe">
+        <img src="palak-paneer.jpg" alt="Palak Paneer">
+        <h2>Palak Paneer</h2>
+        <p>Creamy spinach gravy with soft paneer cubes and Indian spices.</p>
+        <button class="view-btn" onclick="openRecipe('palakpaneer')">View Recipe</button>
+        <!-- <h3>Ingredients:</h3>
+        <ul>
+            <li>Spinach, paneer cubes</li>
+            <li>Garlic, ginger, onions</li>
+            <li>Spices, cream (optional)</li>
+        </ul>
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Blanch and purée spinach.</li>
+            <li>Prepare onion-tomato masala and mix with spinach.</li>
+            <li>Add paneer, simmer and serve with roti or rice.</li>
+        </ol> -->
+    </div>
+
+    <div class="recipe">
+        <img src="aloo-paratha.jpg" alt="Aloo Paratha">
+        <h2>Aloo Paratha</h2>
+        <p>Stuffed flatbread with spicy mashed potatoes, crisp and golden.</p>
+        <button class="view-btn" onclick="openRecipe('alooparatha')">View Recipe</button>
+        <!-- <h3>Ingredients:</h3>
+        <ul>
+            <li>Wheat flour, boiled potatoes</li>
+            <li>Green chili, coriander, spices</li>
+            <li>Ghee or butter</li>
+        </ul>
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Knead dough, prepare spicy potato filling.</li>
+            <li>Stuff and roll parathas.</li>
+            <li>Cook on tawa with ghee till golden.</li>
+        </ol> -->
+    </div>
+
+    <div class="recipe">
+        <img src="masala-dosa.jpg" alt="Masala Dosa">
+        <h2>Masala Dosa</h2>
+        <p>Crispy rice crepe filled with spicy potato masala, served with chutney.</p>
+        <button class="view-btn" onclick="openRecipe('masaladosa')">View Recipe</button>
+        <!-- <h3>Ingredients:</h3>
+        <ul>
+            <li>Rice and urad dal batter</li>
+            <li>Potato masala filling</li>
+            <li>Ghee or oil</li>
+        </ul>
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Ferment batter overnight.</li>
+            <li>Spread dosa on hot tawa, add potato filling.</li>
+            <li>Fold and serve with chutney/sambar.</li>
+        </ol> -->
+    </div>
+
+    <div class="recipe">
+        <img src="rajma-chawal.jpg" alt="Rajma Chawal">
+        <h2>Rajma Chawal</h2>
+        <p>Comforting kidney bean curry served over steamed basmati rice.</p>
+        <button class="view-btn" onclick="openRecipe('rajmachawal')">View Recipe</button>
+        <!-- <h3>Ingredients:</h3>
+        <ul>
+            <li>Boiled kidney beans</li>
+            <li>Onion, tomato gravy</li>
+            <li>Cooked rice</li>
+        </ul>
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Prepare spicy rajma curry.</li>
+            <li>Simmer until thick and rich.</li>
+            <li>Serve hot with steamed rice.</li>
+        </ol> -->
+    </div>
+
+    <div id="recipe-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-btn" onclick="closeRecipe()">&times;</span>
+        <h2 id="recipe-title"></h2>
+        <h4>Ingredients</h4>
+        <p id="recipe-ingredients"></p>
+        <h4>Instructions</h4>
+        <p id="recipe-steps"></p>
+      </div>
+    </div>
+
+
+  </div>
+
+  <script>
+    function openRecipe(id) {
+  const recipes = {
+    chole: {
+      title: "Chole Bhature",
+      ingredients: `- 1 cup soaked chickpeas (Kabuli chana)
+- 1 large onion, finely chopped
+- 2 medium tomatoes, pureed
+- 1 tbsp ginger-garlic paste
+- 1 green chili (optional)
+- 2 tbsp chole masala
+- ½ tsp turmeric powder
+- 1 tsp red chili powder
+- ½ tsp garam masala
+- 3 tbsp oil
+- Salt to taste
+- Bhature dough (2 cups maida, ¼ cup yogurt, ½ tsp baking powder, water as needed)`,
+      steps: `1. Pressure cook soaked chickpeas till soft.
+2. Heat oil, sauté onions until golden.
+3. Add ginger-garlic paste and green chili, cook 1 min.
+4. Add tomato puree, turmeric, chili powder, chole masala, salt; cook till oil separates.
+5. Add boiled chickpeas with some water, simmer 15-20 mins.
+6. Add garam masala, mix well.
+7. For bhature, knead dough, rest 2 hours, roll and deep fry till puffed.
+8. Serve chole hot with bhature.`
+    },
+
+    vegbiryani: {
+      title: "Veg Biryani",
+      ingredients: `- 1.5 cups basmati rice (washed, soaked 30 mins)
+- 1.5 cups mixed vegetables (carrot, beans, peas, potato)
+- 1 large onion, sliced
+- 1 medium tomato, chopped
+- 1 tbsp ginger-garlic paste
+- 1-2 green chilies, slit
+- 2 tbsp biryani masala
+- ½ cup yogurt
+- Handful mint and coriander leaves
+- Whole spices (bay leaf, cinnamon, cloves, cardamom)
+- 3 tbsp oil/ghee
+- Salt to taste
+- 3 cups water`,
+      steps: `1. Heat oil/ghee, sauté whole spices and onions till golden.
+2. Add ginger-garlic paste and green chilies, cook 1 min.
+3. Add tomatoes, cook till soft.
+4. Add vegetables, biryani masala, salt, yogurt; cook till veggies half done.
+5. Boil rice 70% cooked, drain.
+6. Layer veggies and rice, sprinkle mint and coriander.
+7. Cover, cook on low flame (dum) 20-25 mins.
+8. Serve hot with raita or salad.`
+    },
+
+    vegpulao: {
+      title: "Veg Pulao",
+      ingredients: `- 1.5 cups basmati rice
+- 1 cup mixed vegetables
+- 1 medium onion, sliced
+- 1 tsp ginger-garlic paste
+- Whole spices (bay leaf, cinnamon, cloves, cardamom)
+- 2 tbsp oil/ghee
+- Salt to taste
+- 3 cups water`,
+      steps: `1. Heat oil/ghee, add whole spices, sauté onions till golden.
+2. Add ginger-garlic paste, cook 1 min.
+3. Add vegetables, sauté 2-3 mins.
+4. Add rice, salt, and water.
+5. Cover and cook until rice is done and water absorbed.
+6. Fluff rice and serve hot.`
+    },
+
+    rajmachawal: {
+      title: "Rajma Chawal",
+      ingredients: `- 1 cup soaked kidney beans (rajma)
+- 1 medium onion, chopped
+- 2 medium tomatoes, pureed
+- 1 tbsp ginger-garlic paste
+- 2 tsp rajma masala or garam masala
+- ½ tsp turmeric powder
+- 1 tsp red chili powder
+- 3 tbsp oil
+- Salt to taste
+- 1.5 cups basmati rice`,
+      steps: `1. Pressure cook rajma till soft.
+2. Heat oil, sauté onions till golden.
+3. Add ginger-garlic paste, cook 1 min.
+4. Add tomato puree and spices, cook till oil separates.
+5. Add cooked rajma with water, simmer 20 mins.
+6. Cook rice separately.
+7. Serve rajma hot over rice.`
+    },
+
+    alooparatha: {
+      title: "Aloo Paratha",
+      ingredients: `- 2 cups wheat flour
+- 3 medium boiled potatoes, mashed
+- 1 chopped green chili
+- Chopped coriander leaves
+- 1 tsp cumin powder
+- ½ tsp garam masala
+- Salt to taste
+- Oil/ghee for cooking`,
+      steps: `1. Mix mashed potatoes with green chili, coriander, cumin powder, garam masala, salt.
+2. Prepare soft wheat flour dough with water.
+3. Roll dough ball, stuff with potato filling.
+4. Roll gently into paratha shape.
+5. Cook on hot tawa with oil/ghee till golden brown on both sides.
+6. Serve hot with yogurt or pickle.`
+    },
+
+    masaladosa: {
+      title: "Masala Dosa",
+      ingredients: `- 2 cups dosa batter (fermented rice and urad dal)
+- 3 medium boiled potatoes, mashed
+- 1 medium onion, chopped
+- 1 chopped green chili
+- 1 tsp mustard seeds
+- Few curry leaves
+- ½ tsp turmeric powder
+- 2 tbsp oil
+- Salt to taste`,
+      steps: `1. Heat oil, add mustard seeds, curry leaves.
+2. Sauté onions and green chili till translucent.
+3. Add turmeric, mashed potatoes, salt; cook 5 mins.
+4. Heat pan, spread thin dosa batter.
+5. Drizzle oil, cook till crisp and golden.
+6. Place potato filling inside, fold dosa.
+7. Serve with chutney and sambar.`
+    },
+
+    palakpaneer: {
+      title: "Palak Paneer",
+      ingredients: `- 250g spinach (blanched and pureed)
+- 200g paneer cubes
+- 1 medium onion, finely chopped
+- 1 medium tomato, pureed
+- 1 tbsp ginger-garlic paste
+- 1 green chili (optional)
+- 1 tsp garam masala
+- ¼ cup cream or milk (optional)
+- 2 tbsp oil/ghee
+- Salt to taste`,
+      steps: `1. Heat oil, sauté onions and ginger-garlic paste till golden.
+2. Add tomato puree, cook till oil separates.
+3. Add spinach puree, salt, garam masala; simmer 10 mins.
+4. Add paneer cubes and cream, cook 5 mins.
+5. Serve hot with roti or naan.`
+    },
+
+    dalmakhani: {
+      title: "Dal Makhani",
+      ingredients: `- 1 cup soaked whole urad dal (black gram)
+- ¼ cup soaked kidney beans (rajma)
+- 1 medium onion, finely chopped
+- 1 cup tomato puree
+- 1 tbsp ginger-garlic paste
+- 3 tbsp butter
+- ¼ cup cream
+- 1 tsp garam masala
+- 1 tsp red chili powder
+- Salt to taste`,
+      steps: `1. Pressure cook dal and rajma till soft.
+2. Heat butter, sauté onions till golden, add ginger-garlic paste.
+3. Add tomato puree and spices, cook till oil separates.
+4. Add cooked dal, simmer 30 mins stirring occasionally.
+5. Add cream and garam masala, cook 5 mins.
+6. Serve hot with rice or roti.`
+    },
+
+    vegmanchurian: {
+      title: "Veg Manchurian",
+      ingredients: `- 2 cups finely chopped mixed vegetables (cabbage, carrot, beans, capsicum)
+- ½ cup all-purpose flour (maida)
+- ¼ cup cornflour
+- 1 tsp ginger-garlic paste
+- 2 tbsp soy sauce
+- 1 tbsp chili sauce
+- 2 chopped spring onions
+- Oil for frying and cooking
+- Salt and pepper to taste`,
+      steps: `1. Mix vegetables with flours, salt, pepper, ginger-garlic paste into dough.
+2. Shape into small balls, deep fry till golden, drain.
+3. Heat oil, sauté spring onions, add soy sauce, chili sauce, little water.
+4. Add fried balls, toss well.
+5. Garnish with spring onions, serve hot.`
+    },
+
+    panertikka: {
+      title: "Paneer Tikka",
+      ingredients: `- 250g paneer cubes
+- ½ cup yogurt
+- 1 tsp ginger-garlic paste
+- 1 tsp red chili powder
+- ½ tsp turmeric powder
+- 1 tsp garam masala
+- 1 tbsp lemon juice
+- 2 tbsp oil
+- Salt to taste
+- Bell peppers and onion chunks (optional)`,
+      steps: `1. Mix yogurt with spices, ginger-garlic paste, lemon juice, salt.
+2. Marinate paneer and veggies 1-2 hours.
+3. Thread paneer and veggies on skewers.
+4. Grill/bake at 200°C for 15-20 mins or pan-fry till charred.
+5. Serve with mint chutney and lemon wedges.`
+    }
+  };
+
+  const recipe = recipes[id];
+  document.getElementById('recipe-title').textContent = recipe.title;
+  document.getElementById('recipe-ingredients').textContent = recipe.ingredients;
+  document.getElementById('recipe-steps').textContent = recipe.steps;
+  document.getElementById('recipe-modal').style.display = 'flex';
+}
+
+function closeRecipe() {
+  document.getElementById('recipe-modal').style.display = 'none';
+}
+
+  </script>
+
+</body>
+</html>
