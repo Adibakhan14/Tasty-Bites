@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasty_Bites</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Menu Toggle Button -->
+    <button class="menu-toggle" onclick="toggleSidebar()">
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </button>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2 class="sidebar-logo">🍽️ Menu</h2>
+            <button class="sidebar-close" onclick="closeSidebar()">&times;</button>
+        </div>
+        <div class="sidebar-menu">
+            <button class="menu-item active" onclick="showSection('home')">
+                <span class="menu-icon">🏠</span>
+                <span>Home</span>
+            </button>
+            <button class="menu-item" onclick="showSection('favorites')">
+                <span class="menu-icon">❤️</span>
+                <span>Favorites</span>
+            </button>
+            <button class="menu-item" onclick="showSection('about')">
+                <span class="menu-icon">ℹ️</span>
+                <span>About</span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Home Section -->
+        <div id="home" class="content-section active">
+            <header>
+                <div class="header-content">
+                    <h1 class="logo">🍽️ Tasty Bites</h1>
+                    <div class="search-container">
+                        <div class="search-icon">🔍</div>
+                        <input type="text" class="search-input" placeholder="Search for recipes..." id="searchInput">
+                    </div>
+                </div>
+            </header>
+
+            <div class="category-filters">
+                <button class="category-btn active" data-category="all">All Recipes</button>
+                <button class="category-btn" data-category="breakfast">🥞 Breakfast</button>
+                <button class="category-btn" data-category="lunch">🥗 Lunch</button>
+                <button class="category-btn" data-category="dinner">🍽️ Dinner</button>
+                <button class="category-btn" data-category="dessert">🧁 Dessert</button>
+                <button class="category-btn" data-category="vegetarian">🥬 Vegetarian</button>
+                <button class="category-btn" data-category="beverage">🍺 Beverage</button>
+                <button class="category-btn" data-category="snack">🍟 Snack</button>
+                <button class="category-btn" data-category="quick">⚡ Quick Meals</button>
+            </div>
+
+            <div class="recipes-grid" id="recipesGrid">
+                <!-- Recipe cards will be dynamically generated here -->
+            </div>
+
+            <div class="no-results" id="noResults" style="display: none;">
+                <h3>No recipes found</h3>
+                <p>Try adjusting your search or filters</p>
+            </div>
+        </div>
+
+        <!-- Favorites Section -->
+        <div id="favorites" class="content-section">
+            <header>
+                <div class="header-content">
+                    <h1 class="logo">❤️ Your Favorites</h1>
+                </div>
+            </header>
+            <div class="recipes-grid" id="favoritesGrid">
+                <!-- Favorite recipes will be shown here -->
+            </div>
+            <div class="no-results" id="noFavorites" style="display: none;">
+                <h3>No favorites yet</h3>
+                <p>Start adding recipes to your favorites by clicking the heart icon!</p>
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <div id="about" class="content-section">
+            <div class="about-content">
+                <h2>About Tasty Bites</h2>
+                <p>Welcome to Tasty Bites, your ultimate destination for delicious recipes from around the world! We believe that cooking should be fun, accessible, and rewarding for everyone.</p>
+                
+                <p>Our carefully curated collection features recipes ranging from quick weekday meals to elaborate weekend projects, ensuring there's something perfect for every occasion and skill level.</p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🌍</div>
+                        <div class="feature-title">Global Cuisine</div>
+                        <p>Explore flavors from around the world with our diverse recipe collection.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⏱️</div>
+                        <div class="feature-title">Quick & Easy</div>
+                        <p>Find recipes that fit your schedule, from 5-minute snacks to gourmet meals.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🥬</div>
+                        <div class="feature-title">Healthy Options</div>
+                        <p>Discover nutritious and delicious recipes for a balanced lifestyle.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <div class="feature-title">Mobile Friendly</div>
+                        <p>Cook with confidence using our responsive design on any device.</p>
+                    </div>
+                </div>
+
+                <p>Whether you're a beginner cook or a seasoned chef, Tasty Bites is here to inspire your culinary journey. Happy cooking! 👨‍🍳</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="floating-chef" onclick="scrollToTop()">👨‍🍳</div>
+
+    <!-- Recipe Modal -->
+    <div class="modal" id="recipeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Recipe Details</h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Recipe details will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
