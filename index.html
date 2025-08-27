@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tasty_Bites</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Tasty Bites - Discover Amazing Recipes</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
     <!-- Menu Toggle Button -->
@@ -41,18 +41,36 @@
         </div>
     </nav>
 
-    <div class="container">
-        <!-- Home Section -->
-        <div id="home" class="content-section active">
-            <header>
-                <div class="header-content">
-                    <h1 class="logo">🍽️ Tasty Bites</h1>
-                    <div class="search-container">
-                        <div class="search-icon">🔍</div>
-                        <input type="text" class="search-input" placeholder="Search for recipes..." id="searchInput">
-                    </div>
+    <!-- Home Section -->
+    <div id="home" class="content-section active">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <video class="hero-video" autoplay muted loop>
+                <source src="https://cdn.pixabay.com/video/2020/09/21/48942-461292843_large.mp4" type="video/mp4">
+            </video>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1 class="hero-title">Welcome to Tasty Bites</h1>
+                <p class="hero-subtitle">Discover amazing recipes from around the world and create unforgettable culinary experiences</p>
+                <a href="#recipes" class="hero-cta" onclick="scrollToRecipes()">
+                    <span>Explore Recipes</span>
+                    <span>🍽️</span>
+                </a>
+            </div>
+            <!-- <div class="scroll-indicator">
+                <div>Scroll to discover</div>
+                <div style="font-size: 1.5rem; margin-top: 0.5rem;">↓</div>
+            </div> -->
+        </section>
+
+        <!-- Recipes Section -->
+        <div class="container" id="recipes">
+            <div class="search-section">
+                <div class="search-container">
+                    <div class="search-icon">🔍</div>
+                    <input type="text" class="search-input" placeholder="Search for amazing recipes..." id="searchInput">
                 </div>
-            </header>
+            </div>
 
             <div class="category-filters">
                 <button class="category-btn active" data-category="all">All Recipes</button>
@@ -75,14 +93,15 @@
                 <p>Try adjusting your search or filters</p>
             </div>
         </div>
+    </div>
 
-        <!-- Favorites Section -->
-        <div id="favorites" class="content-section">
-            <header>
-                <div class="header-content">
-                    <h1 class="logo">❤️ Your Favorites</h1>
-                </div>
-            </header>
+    <!-- Favorites Section -->
+    <div id="favorites" class="content-section">
+        <div class="container">
+            <div style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px); border-radius: 24px; padding: 3rem; margin: 2rem 0; border: 1px solid rgba(255, 255, 255, 0.1);">
+                <h1 style="font-size: 3rem; font-weight: 800; background: linear-gradient(135deg, #ff6b6b, #feca57); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1rem;">❤️ Your Favorites</h1>
+                <p style="color: rgba(255, 255, 255, 0.7); font-size: 1.1rem;">Your personally curated collection of amazing recipes</p>
+            </div>
             <div class="recipes-grid" id="favoritesGrid">
                 <!-- Favorite recipes will be shown here -->
             </div>
@@ -91,9 +110,11 @@
                 <p>Start adding recipes to your favorites by clicking the heart icon!</p>
             </div>
         </div>
+    </div>
 
-        <!-- About Section -->
-        <div id="about" class="content-section">
+    <!-- About Section -->
+    <div id="about" class="content-section">
+        <div class="container">
             <div class="about-content">
                 <h2>About Tasty Bites</h2>
                 <p>Welcome to Tasty Bites, your ultimate destination for delicious recipes from around the world! We believe that cooking should be fun, accessible, and rewarding for everyone.</p>
@@ -123,12 +144,63 @@
                     </div>
                 </div>
 
-                <p>Whether you're a beginner cook or a seasoned chef, Tasty Bites is here to inspire your culinary journey. Happy cooking! 👨‍🍳</p>
+                <p>Whether you're a beginner cook or a seasoned chef, Tasty Bites is here to inspire your culinary journey. Happy cooking!</p>
             </div>
         </div>
     </div>
 
-    <div class="floating-chef" onclick="scrollToTop()">👨‍🍳</div>
+    <div class="floating-chef" onclick="toggleChefChat()">👨‍🍳</div>
+
+    <!-- Chef Assistant Chat Panel -->
+    <div class="chef-chat-panel" id="chefChatPanel">
+        <div class="chat-header">
+            <div class="chef-avatar">👨‍🍳</div>
+            <div class="chef-info">
+                <h3>Chef Assistant</h3>
+                <p class="chef-status">Online - Ready to help!</p>
+            </div>
+            <button class="chat-close-btn" onclick="toggleChefChat()">&times;</button>
+        </div>
+        
+        <div class="chat-messages" id="chatMessages">
+            <div class="message chef-message">
+                <div class="message-avatar">👨‍🍳</div>
+                <div class="message-content">
+                    <p>Hello! I'm your personal cooking assistant. I can help you with:</p>
+                    <ul>
+                        <li>Recipe suggestions</li>
+                        <li>Cooking tips and techniques</li>
+                        <li>Ingredient substitutions</li>
+                        <li>Meal planning advice</li>
+                    </ul>
+                    <p>How can I assist you today?</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="quick-actions">
+            <button class="quick-action-btn" onclick="sendQuickMessage('I need a quick dinner recipe')">
+                ⚡ Quick Dinner
+            </button>
+            <button class="quick-action-btn" onclick="sendQuickMessage('What can I make with chicken?')">
+                🍗 Chicken Ideas
+            </button>
+            <button class="quick-action-btn" onclick="sendQuickMessage('Healthy meal suggestions')">
+                🥗 Healthy Options
+            </button>
+            <button class="quick-action-btn" onclick="sendQuickMessage('Dessert recommendations')">
+                🍰 Desserts
+            </button>
+        </div>
+        
+        <div class="chat-input-area">
+            <input type="text" class="chat-input" id="chatInput" placeholder="Ask me anything about cooking..." maxlength="200">
+            <button class="send-btn" onclick="sendMessage()">
+                <span>Send</span>
+                <span class="send-icon">➤</span>
+            </button>
+        </div>
+    </div>
 
     <!-- Recipe Modal -->
     <div class="modal" id="recipeModal">
@@ -142,7 +214,7 @@
             </div>
         </div>
     </div>
-
+    
     <script src="script.js"></script>
 </body>
 </html>
