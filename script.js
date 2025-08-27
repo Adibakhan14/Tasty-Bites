@@ -710,9 +710,199 @@ const recipes = [
             }
         ];
 
+
         let filteredRecipes = [...recipes];
         let favorites = [];
         let currentSection = 'home';
+        let chatHistory = [];
+
+        // Chef Chat functionality
+        function toggleChefChat() {
+            const chatPanel = document.getElementById('chefChatPanel');
+            chatPanel.classList.toggle('active');
+            
+            if (chatPanel.classList.contains('active')) {
+                document.getElementById('chatInput').focus();
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                addUserMessage(message);
+                input.value = '';
+                
+                // Show typing indicator
+                showTypingIndicator();
+                
+                // Simulate chef response after a delay
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    generateChefResponse(message);
+                }, 1500);
+            }
+        }
+
+        function sendQuickMessage(message) {
+            addUserMessage(message);
+            showTypingIndicator();
+            
+            setTimeout(() => {
+                hideTypingIndicator();
+                generateChefResponse(message);
+            }, 1200);
+        }
+
+        function addUserMessage(message) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageElement = document.createElement('div');
+            messageElement.className = 'message user-message';
+            messageElement.innerHTML = `
+                <div class="message-avatar">🙋</div>
+                <div class="message-content">
+                    <p>${message}</p>
+                </div>
+            `;
+            messagesContainer.appendChild(messageElement);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            chatHistory.push({ type: 'user', message: message });
+        }
+
+        function addChefMessage(message) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageElement = document.createElement('div');
+            messageElement.className = 'message chef-message';
+            messageElement.innerHTML = `
+                <div class="message-avatar">👨‍🍳</div>
+                <div class="message-content">
+                    ${message}
+                </div>
+            `;
+            messagesContainer.appendChild(messageElement);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            chatHistory.push({ type: 'chef', message: message });
+        }
+
+        function showTypingIndicator() {
+            const messagesContainer = document.getElementById('chatMessages');
+            const typingElement = document.createElement('div');
+            typingElement.id = 'typingIndicator';
+            typingElement.className = 'message chef-message';
+            typingElement.innerHTML = `
+                <div class="message-avatar">👨‍🍳</div>
+                <div class="message-content">
+                    <div class="typing-indicator">
+                        <span>Chef is typing</span>
+                        <div class="typing-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            messagesContainer.appendChild(typingElement);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const typingIndicator = document.getElementById('typingIndicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        function generateChefResponse(userMessage) {
+            const lowerMessage = userMessage.toLowerCase();
+            let response = '';
+
+            // Recipe suggestions based on keywords
+            if (lowerMessage.includes('quick') || lowerMessage.includes('fast') || lowerMessage.includes('dinner')) {
+                const quickRecipes = recipes.filter(r => r.tags.includes('quick') || r.time.includes('15') || r.time.includes('20'));
+                if (quickRecipes.length > 0) {
+                    const randomRecipe = quickRecipes[Math.floor(Math.random() * quickRecipes.length)];
+                    response = `<p>For a quick dinner, I recommend <strong>${randomRecipe.title}</strong>! It takes only ${randomRecipe.time} and serves ${randomRecipe.servings} people.</p><p>${randomRecipe.description}</p><p>Would you like me to show you more quick recipes?</p>`;
+                } else {
+                    response = `<p>For quick dinners, I recommend simple stir-fries, pasta dishes, or grilled proteins with steamed vegetables. These can be prepared in 20-30 minutes!</p>`;
+                }
+            }
+            else if (lowerMessage.includes('chicken')) {
+                const chickenRecipes = recipes.filter(r => r.title.toLowerCase().includes('chicken') || r.ingredients.some(ing => ing.toLowerCase().includes('chicken')));
+                if (chickenRecipes.length > 0) {
+                    const recipes_list = chickenRecipes.map(r => `<li><strong>${r.title}</strong> - ${r.description}</li>`).join('');
+                    response = `<p>Here are some delicious chicken recipes I have for you:</p><ul>${recipes_list}</ul><p>Which one sounds appealing to you?</p>`;
+                } else {
+                    response = `<p>Chicken is so versatile! You can grill it, bake it, stir-fry it, or make it into curry. Some popular preparations include:</p><ul><li>Grilled chicken with herbs</li><li>Chicken stir-fry with vegetables</li><li>Creamy chicken curry</li><li>Baked chicken with garlic and lemon</li></ul>`;
+                }
+            }
+            else if (lowerMessage.includes('healthy') || lowerMessage.includes('diet')) {
+                const healthyRecipes = recipes.filter(r => r.tags.includes('healthy') || r.tags.includes('vegetarian'));
+                if (healthyRecipes.length > 0) {
+                    const recipe = healthyRecipes[Math.floor(Math.random() * healthyRecipes.length)];
+                    response = `<p>For healthy eating, try <strong>${recipe.title}</strong>! ${recipe.description}</p><p>It's packed with nutrition and takes only ${recipe.time} to prepare.</p><p>Other healthy options include salads, grilled proteins, steamed vegetables, and whole grain dishes.</p>`;
+                } else {
+                    response = `<p>For healthy meals, focus on:</p><ul><li>Fresh vegetables and fruits</li><li>Lean proteins like chicken, fish, or tofu</li><li>Whole grains</li><li>Minimal processed foods</li></ul><p>Grilling, steaming, and baking are great healthy cooking methods!</p>`;
+                }
+            }
+            else if (lowerMessage.includes('dessert') || lowerMessage.includes('sweet')) {
+                const desserts = recipes.filter(r => r.category === 'dessert');
+                if (desserts.length > 0) {
+                    const dessert = desserts[Math.floor(Math.random() * desserts.length)];
+                    response = `<p>For dessert, how about <strong>${dessert.title}</strong>? ${dessert.description}</p><p>It's ${dessert.difficulty.toLowerCase()} to make and perfect for special occasions!</p>`;
+                } else {
+                    response = `<p>Sweet treats are always a good idea! Some classic dessert options include:</p><ul><li>Fresh fruit with whipped cream</li><li>Chocolate chip cookies</li><li>Ice cream sundaes</li><li>Fruit tarts</li></ul>`;
+                }
+            }
+            else if (lowerMessage.includes('vegetarian') || lowerMessage.includes('vegan')) {
+                const vegRecipes = recipes.filter(r => r.tags.includes('vegetarian'));
+                if (vegRecipes.length > 0) {
+                    const vegOptions = vegRecipes.slice(0, 2).map(r => `<li><strong>${r.title}</strong> - ${r.description}</li>`).join('');
+                    response = `<p>Great vegetarian options from our collection:</p><ul>${vegOptions}</ul><p>Vegetarian cooking is all about celebrating vegetables, grains, and plant-based proteins!</p>`;
+                } else {
+                    response = `<p>Vegetarian cuisine is wonderfully diverse! Try:</p><ul><li>Pasta with fresh vegetables</li><li>Grain bowls with roasted veggies</li><li>Veggie stir-fries</li><li>Bean-based curries</li></ul>`;
+                }
+            }
+            else if (lowerMessage.includes('breakfast')) {
+                const breakfastRecipes = recipes.filter(r => r.category === 'breakfast');
+                if (breakfastRecipes.length > 0) {
+                    const breakfast = breakfastRecipes[Math.floor(Math.random() * breakfastRecipes.length)];
+                    response = `<p>Start your day right with <strong>${breakfast.title}</strong>! ${breakfast.description}</p><p>It takes ${breakfast.time} and is ${breakfast.difficulty.toLowerCase()} to make. Perfect for a ${breakfast.tags.includes('quick') ? 'busy' : 'relaxed'} morning!</p>`;
+                } else {
+                    response = `<p>Breakfast is the most important meal! Some nutritious options:</p><ul><li>Oatmeal with fresh fruits</li><li>Scrambled eggs with vegetables</li><li>Smoothie bowls</li><li>Whole grain toast with avocado</li></ul>`;
+                }
+            }
+            else if (lowerMessage.includes('ingredient') || lowerMessage.includes('substitute')) {
+                response = `<p>Need ingredient substitutions? Here are some common ones:</p><ul><li><strong>Butter:</strong> Use vegetable oil, coconut oil, or applesauce</li><li><strong>Eggs:</strong> Try flax eggs, applesauce, or commercial egg replacer</li><li><strong>Milk:</strong> Almond, soy, or oat milk work great</li><li><strong>Sugar:</strong> Honey, maple syrup, or stevia are good alternatives</li></ul><p>What specific ingredient do you need to substitute?</p>`;
+            }
+            else if (lowerMessage.includes('tips') || lowerMessage.includes('advice')) {
+                const tips = [
+                    "Always read the entire recipe before starting to cook.",
+                    "Prep all your ingredients first - this makes cooking much smoother!",
+                    "Taste as you go and adjust seasonings accordingly.",
+                    "Keep your knives sharp for safer and more efficient cooking.",
+                    "Don't overcrowd your pans when sautéing or frying."
+                ];
+                const randomTip = tips[Math.floor(Math.random() * tips.length)];
+                response = `<p><strong>Chef's Tip:</strong> ${randomTip}</p><p>Remember, cooking is about experimentation and having fun. Don't be afraid to try new flavors and techniques!</p>`;
+            }
+            else if (lowerMessage.includes('time') || lowerMessage.includes('how long')) {
+                response = `<p>Cooking times vary by recipe, but here are general guidelines:</p><ul><li><strong>Quick meals:</strong> 15-30 minutes</li><li><strong>Regular meals:</strong> 30-60 minutes</li><li><strong>Complex dishes:</strong> 1-3 hours</li></ul><p>Always check for doneness rather than relying solely on time!</p>`;
+            }
+            else {
+                const responses = [
+                    `<p>That's an interesting question! Could you tell me more about what type of dish or cooking challenge you're facing? I'm here to help with recipes, techniques, and cooking advice.</p>`,
+                    `<p>I'd love to help you with that! Are you looking for a specific type of recipe, cooking technique, or ingredient advice? Let me know what you'd like to explore!</p>`,
+                    `<p>Great question! I can assist with recipe suggestions, cooking tips, meal planning, and ingredient substitutions. What specific culinary adventure are you planning?</p>`
+                ];
+                response = responses[Math.floor(Math.random() * responses.length)];
+            }
+
+            addChefMessage(response);
+        }
 
         // Sidebar functionality
         function toggleSidebar() {
@@ -894,16 +1084,16 @@ const recipes = [
             
             modalTitle.textContent = recipe.title;
             modalBody.innerHTML = `
-                <div class="recipe-image" style="background-image: url('${recipe.image}'); height: 250px; margin-bottom: 2rem; border-radius: 10px; background-size: cover; background-position: center;"></div>
-                <p style="font-size: 1.1rem; color: #4a5568; margin-bottom: 2rem;">${recipe.description}</p>
+                <div class="recipe-image" style="background-image: url('${recipe.image}'); height: 250px; margin-bottom: 2rem; border-radius: 16px; background-size: cover; background-position: center;"></div>
+                <p style="font-size: 1.1rem; color: rgba(255, 255, 255, 0.8); margin-bottom: 2rem; line-height: 1.6;">${recipe.description}</p>
                 
-                <div class="recipe-stats" style="margin-bottom: 2rem; padding: 1rem; background: #f7fafc; border-radius: 10px;">
+                <div class="recipe-stats" style="margin-bottom: 2rem; padding: 1.5rem; background: rgba(255, 255, 255, 0.05); border-radius: 16px;">
                     <div class="stat-item"><span>⏰</span> <span>${recipe.time}</span></div>
                     <div class="stat-item"><span>👥</span> <span>${recipe.servings} servings</span></div>
                     <div class="stat-item"><span>📊</span> <span>${recipe.difficulty}</span></div>
                 </div>
                 
-                <div class="ingredients-section">
+                <div class="ingredients-section" style="margin-bottom: 2rem;">
                     <h3 class="section-title">🛒 Ingredients</h3>
                     <ul class="ingredient-list">
                         ${recipe.ingredients.map(ingredient => `<li class="ingredient-item">${ingredient}</li>`).join('')}
@@ -934,6 +1124,10 @@ const recipes = [
 
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function scrollToRecipes() {
+            document.getElementById('recipes').scrollIntoView({ behavior: 'smooth' });
         }
 
         // Event listeners
