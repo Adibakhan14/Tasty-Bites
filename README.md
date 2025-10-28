@@ -13,7 +13,7 @@ The app also features a floating **👨‍🍳 Chef Assistant**, helping users q
 - 🧾 **Category Filtering** — Filter recipes by meal types like Breakfast, Lunch, Dinner, Snacks, etc.  
 - ❤️ **Favorites** — Mark and view your favorite recipes  
 - 📦 **Recipe Modal Popup** — Click any recipe to see detailed steps and ingredients in a modal  
-- 👨‍🍳 **Chef Assistant** — Floating chef icon for smooth scroll-to-top  
+- 👨‍🍳 **Chef Assistant** — FAQs and Cooking Tips  
 - 📱 **Responsive Design** — Optimized for all screen sizes and devices  
 - 📄 **About Section** — Overview of the platform with feature highlights  
 
